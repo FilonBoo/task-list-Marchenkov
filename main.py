@@ -11,34 +11,44 @@ while True:
 
     if choice == "1":
         task = input("Введите задачу: ")
-        tasks.append(task)
-        print("Задача добавлена.")
+
+        if task.strip():
+            tasks.append(task)
+            print("Задача добавлена.")
+        else:
+            print("Задача не может быть пустой.")
 
     elif choice == "2":
-        if len(tasks) == 0:
+        if not tasks:
             print("Список задач пуст.")
         else:
-            for i in range(len(tasks)):
-                print(f"{i + 1}. {tasks[i]}")
+            print("\nВаши задачи:")
+            for i, task in enumerate(tasks, start=1):
+                print(f"{i}. {task}")
 
     elif choice == "3":
-        if len(tasks) == 0:
+        if not tasks:
             print("Список задач пуст.")
         else:
-            for i in range(len(tasks)):
-                print(f"{i + 1}. {tasks[i]}")
+            print("\nВаши задачи:")
+            for i, task in enumerate(tasks, start=1):
+                print(f"{i}. {task}")
 
-            number = int(input("Введите номер задачи для удаления: "))
+            try:
+                number = int(input("Введите номер задачи для удаления: "))
 
-            if number >= 1 and number <= len(tasks):
-                tasks.pop(number - 1)
-                print("Задача удалена.")
-            else:
-                print("Такой задачи нет.")
+                if 1 <= number <= len(tasks):
+                    deleted_task = tasks.pop(number - 1)
+                    print(f"Задача «{deleted_task}» удалена.")
+                else:
+                    print("Такой задачи нет.")
+
+            except ValueError:
+                print("Введите именно номер задачи.")
 
     elif choice == "4":
         print("Программа завершена.")
         break
 
     else:
-        print("Неверный пункт меню.")
+        print("Неверный пункт меню. Выберите число от 1 до 4.")
